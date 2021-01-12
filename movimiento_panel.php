@@ -6,6 +6,13 @@
         <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
         <script src="bootstrap/js/bootstrap.bundle.js" charset="utf-8"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?php
+            session_start();
+            if(!isset($_SESSION['usuario_actual'])){
+                header("Location:index.php");
+            }
+
+        ?>
     </head>
     <body>
         <div class=".container">

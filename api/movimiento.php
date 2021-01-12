@@ -1,10 +1,12 @@
 <?php
     //inclusion de php para conectar con la BD
+
     namespace Movimientos\Api\Usuario ;
     header("Access-Control-Allow-Origin: *");
     header("Content-Type: application/json; charset=UTF-8");
     require_once('../Parametros/Conexion.php');
     require_once('../Parametros/Objetos/Movimiento.php');
+    session_start();
     use Movimientos\Config\Conexion as Conexion;
     use Movimientos\Config\Objetos\Movimiento as Movimiento;
     $conexion=new Conexion\Conexion();
@@ -24,7 +26,7 @@
             $movimiento->valor_excenta = $temp->valor_excenta;
             $movimiento->valor_gravada10 = $temp->valor_gravada10;
             $movimiento->valor_gravada5 = $temp->valor_gravada5;
-            $movimiento->usuario = $temp->usuario;
+            $movimiento->usuario = $_SESSION['usuario_actual'];
             try {
                 $resultado=$movimiento->crear_movimiento();
                 echo \json_encode(['mensaje'=>$resultado]);
@@ -41,7 +43,7 @@
                 $movimiento->cargar_id($_GET['id']);
                 $res=$movimiento->leer_movimiento_unico();
             }else if(isset($_GET['tipo'])){
-                
+                $movimiento->usuario=$_SESSION['usuario_actual'];
                 $res=$movimiento->leer_movimientos_tipo($_GET['tipo']);
                 // $res=["mensaje"=>"testing correcto"];
             }

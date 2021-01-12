@@ -1,10 +1,12 @@
 <?php
     //inclusion de php para conectar con la BD
+
     namespace Movimientos\Api\Usuario ;
     header("Access-Control-Allow-Origin: *");
     header("Content-Type: application/json; charset=UTF-8");
     require_once('../Parametros/Conexion.php');
     require_once('../Parametros/Objetos/Usuario.php');
+    session_start();
     use Movimientos\Config\Conexion as Conexion;
     use Movimientos\Config\Objetos\Usuario as Usuario;
     $conexion=new Conexion\Conexion();

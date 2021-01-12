@@ -136,10 +136,10 @@ class Movimiento{
 
         }
     }
-    public function leer_movimientos_tipo($tipo,$mes,$anho){
-        $query = "SELECT numero_factura,fecha,empresa.nombre AS empresa_nombre,empresa_ruc ,total,usuario.nombre AS usuario_nombre, usuario FROM movimiento LEFT JOIN   usuario ON usuario.ruc=usuario LEFT JOIN  empresa ON empresa_ruc = empresa.ruc WHERE tipo=? YEAR(fecha)=? AND MONTH(fecha)=? usuario ORDER BY fecha DESC";
+    public function leer_movimientos_tipo($tipo){
+        $query = "SELECT numero_factura,fecha,empresa.nombre AS empresa_nombre,empresa_ruc ,total,usuario.nombre AS usuario_nombre, usuario FROM movimiento LEFT JOIN   usuario ON usuario.ruc=usuario LEFT JOIN  empresa ON empresa_ruc = empresa.ruc WHERE tipo=? AND usuario=? ORDER BY fecha DESC";
         $temp=$this->db->prepare($query);
-        $temp->execute([$tipo,$mes,$anho,$this->usuario]);
+        $temp->execute([$tipo,$this->usuario]);
         if($temp->rowCount()>0){
             return $temp->fetchAll(\PDO::FETCH_ASSOC);
         }else{
@@ -147,7 +147,7 @@ class Movimiento{
 
         }
     }
-    public function obtener_movimientos_totalizado_tipo($tipo){
+    public function obtener_movimientos_totalizado_tipo($tipo,$mes,$anho){
         $query = "SELECT
             numero_factura,
             fecha,
@@ -162,9 +162,10 @@ class Movimiento{
             FROM movimiento
             LEFT JOIN   usuario ON usuario.ruc=usuario
             LEFT JOIN  empresa ON empresa_ruc = empresa.ruc
-             WHERE tipo=? AND usuario = ? ORDER BY fecha DESC";
+             WHERE  tipo=? AND MONTH(fecha)=? AND YEAR(fecha)=?  AND usuario = ? ORDER BY fecha DESC";
+             // echo $tipo." ".$mes." ".$anho." ".$this->usuario;
         $temp=$this->db->prepare($query);
-        $temp->execute([$tipo,$this->usuario]);
+        $temp->execute([$tipo,$mes,$anho,$this->usuario]);
 
         if($temp->rowCount()>0){
             return $temp->fetchAll(\PDO::FETCH_ASSOC);

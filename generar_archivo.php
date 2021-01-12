@@ -9,16 +9,18 @@ use Movimientos\Config\Objetos\Movimiento as Movimiento;
 $conexion=new Conexion\Conexion();
 $conexion->conectar();
 $movimiento=new Movimiento\Movimiento($conexion->conexion);
-
-// $movimiento->usuario=$_SESSION['usuario'];
-$movimiento->usuario='5031168-9';
-$movimiento->mes=$_GET['mes'];
+if(!isset($_SESSION['usuario'])){
+    header("Location:index.php");
+}
+$movimiento->usuario=$_SESSION['usuario_actual'];
+// $movimiento->usuario='5031168-9';
 $tipo=$_GET['tipo'];
 if(isset($tipo)){
     try {
-        $resultado=$movimiento->obtener_movimientos_totalizado_tipo($tipo);
+        $resultado=$movimiento->obtener_movimientos_totalizado_tipo($tipo,$_GET['mes'],$_GET['anho']);
         // print_r(totalizar($resultado,$tipo));
         $datos_generados=totalizar($resultado,$tipo);
+        // print_r($datos_generados);
         generar_excel($datos_generados);
     } catch (\Exception $e) {
         echo "Error".$e->getMessage();
