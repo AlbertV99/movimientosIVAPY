@@ -22,15 +22,16 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <button type="button" class="btn btn-primary" name="button" onclick="window.location='movimiento_compra_form.php'">Cargar Compra</button>
                     <button type="button" class="btn btn-success" name="button" onclick="window.location='movimiento_venta_form.php'">Cargar Venta</button>
                     <button type="button" class="btn btn-secondary" name="button">Editar</button>
                     <button type="button" class="btn btn-danger" name="button">Eliminar</button>
                     <button type="button" class="btn btn-outline-info" name="button" onclick="generarExcel()">Generar Excel</button>
+                    <button type="button" class="btn btn-outline-info" name="button" onclick="generarExcel()">Generar Totales</button>
 
                 </div>
-                <div class="col-md-6 d-flex justify-content-end">
+                <div class="col-md-5 d-flex justify-content-end">
                     <div class="btn-group" id='tipo'>
                         <input type="radio" class="btn-check" name="btnradio" id="compra" autocomplete="off" checked onclick='cambiar("COMPRA")'>
                         <label class="btn btn-outline-primary" for="compra">Compra</label>
@@ -100,6 +101,11 @@
             window.open(`generar_archivo.php?tipo=VENTA&anho=${anho}&mes=${mes}`);
 
         }
+    }
+    function generarTotales(){
+        let mes=window.prompt("Introduzca el mes del reporte");
+        let anho=window.prompt("Introduzca el año del reporte");
+        window.open(`generar_totales.php?anho=${anho}&mes=${mes}`);
     }
     function popup(titulo,cuerpo,botones){
         const BODY=document.body;

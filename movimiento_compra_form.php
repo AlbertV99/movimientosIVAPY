@@ -157,7 +157,7 @@
         function guardar() {
             let metodo='POST';
             let form={
-                "nfactura":document.getElementById("factura").value,
+                "n_factura":document.getElementById("factura").value,
                 "fecha":document.getElementById("fecha").value,
                 "tipo":"COMPRA",
                 "empresa":document.getElementById("empresa").value,
