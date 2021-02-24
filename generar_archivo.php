@@ -67,17 +67,32 @@
             'movimiento'=>[
                 'tipo'=>$tipo,
                 'datos'=>[],
+                'totalizar'=>[],
                 'total'=>0
             ],
         ];
-        foreach ($movimiento as $key => $value) {
-            $value['iva10']=$value['gravada_10']*10/110;
-            $value['iva5']=$value['gravada_10']*5/105;
-            $value['neto10']=$value['gravada_10']-$value['iva10'];
-            $value['neto5']=$value['gravada_5']-$value['iva5'];
-            $value['total_impuestos']=$value['iva10']+$value['iva5'];
-            $total_datos['movimiento']['total']+=$value['total_impuestos'];
+
+
+        for ($i=0; $i <count($movimiento) ; $i++) {
+            $movimiento[$i]['iva10']=  $movimiento[$i]['gravada_10']*10/110;
+            //$movimiento[$i]['iva10']= $movimiento[$i]['gravada_10']*10/110;
+            $movimiento[$i]['iva5']= $movimiento[$i]['gravada_5']*5/105;
+            $movimiento[$i]['neto10']= $movimiento[$i]['gravada_10']-$movimiento[$i]['iva10'];
+            $movimiento[$i]['neto5']= $movimiento[$i]['gravada_5']-$movimiento[$i]['iva5'];
+            $movimiento[$i]['total_impuestos']=$movimiento[$i]['iva10']+$movimiento[$i]['iva5'];
+            $total_datos['movimiento']['total']+=$movimiento[$i]['total_impuestos'];
+
+
+            //FORMATEO DE NUMEROS
+            $movimiento[$i]['iva10']= number_format((((float) $movimiento[$i]['gravada_10'])*10/110), 0, ',', '.');
+            //$movimiento[$i]['iva10']= $movimiento[$i]['gravada_10']*10/110;
+            $movimiento[$i]['iva5']=number_format((((float) $movimiento[$i]['gravada_5'])*5/105),0,',','.');
+            $movimiento[$i]['neto10']=number_format((((float) $movimiento[$i]['gravada_10']-$movimiento[$i]['iva10'])), 0, ',', '.');
+            $movimiento[$i]['neto5']=number_format((((float) $movimiento[$i]['gravada_5']-$movimiento[$i]['iva5'])), 0, ',', '.');
+            $movimiento[$i]['total_impuestos']=number_format(((float) $movimiento[$i]['total_impuestos']),0,',','.');
         }
+        $total_datos['movimiento']['total']=number_format( ((float) $total_datos['movimiento']['total']),0,',','.');
+        //print_r($movimiento);
         $total_datos['movimiento']['datos']=$movimiento;
         return $total_datos;
     }

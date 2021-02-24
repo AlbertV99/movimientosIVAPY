@@ -28,7 +28,7 @@
                     <button type="button" class="btn btn-secondary" name="button">Editar</button>
                     <button type="button" class="btn btn-danger" name="button">Eliminar</button>
                     <button type="button" class="btn btn-outline-info" name="button" onclick="generarExcel()">Generar Excel</button>
-                    <button type="button" class="btn btn-outline-info" name="button" onclick="generarExcel()">Generar Totales</button>
+                    <button type="button" class="btn btn-outline-info" name="button" onclick="generarTotales()">Generar Totales</button>
 
                 </div>
                 <div class="col-md-5 d-flex justify-content-end">
